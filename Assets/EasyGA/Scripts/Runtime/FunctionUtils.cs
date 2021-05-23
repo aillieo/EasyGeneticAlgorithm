@@ -56,14 +56,14 @@ namespace AillieoUtils
         {
             for (int i = 0; i < input.size; ++i)
             {
-                output[i] = TanH((float)input[i]);
+                output[i] = ReLU((float)input[i]);
             }
         }
 
         public static Vector ReLU(Vector input)
         {
             Vector output = new Vector(input.size);
-            TanH(input, output);
+            ReLU(input, output);
             return output;
         }
     }

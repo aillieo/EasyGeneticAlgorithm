@@ -9,6 +9,9 @@ namespace Sample
     {
         public GameObject ball;
         public GameObject plat;
+        public Material black;
+        public Material white;
+        private MeshRenderer[] renderers;
 
         private static Vector3 G = new Vector3(0, -9.8f, 0);
 
@@ -28,8 +31,31 @@ namespace Sample
             ball.transform.localPosition = initPos;
             ballVelocity = Vector3.zero;
             platVelocity = Vector2.zero;
+
+            if (renderers == null)
+            {
+                renderers = GetComponentsInChildren<MeshRenderer>();
+            }
+            foreach (var r in renderers)
+            {
+                r.material = white;
+            }
         }
-        
+
+        private void OnFail()
+        {
+            this.running = false;
+
+            if (renderers == null)
+            {
+                renderers = GetComponentsInChildren<MeshRenderer>();
+            }
+            foreach (var r in renderers)
+            {
+                r.material = black;
+            }
+        }
+
         public override void OnUpdate(float deltaTime)
         {
             if (!running)
@@ -47,7 +73,7 @@ namespace Sample
             if (Mathf.Abs(ball.transform.localPosition.x) > 4 || Mathf.Abs(ball.transform.localPosition.z) > 4)
             {
                 // 失败了
-                running = false;
+                OnFail();
                 return;
             }
 
@@ -58,7 +84,7 @@ namespace Sample
                 if (Mathf.Abs(delta.x) > 0.5 || Mathf.Abs(delta.z) > 0.5)
                 {
                     // 失败了
-                    running = false;
+                    OnFail();
                     return;
                 }
                 else

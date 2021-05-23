@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace AillieoUtils
             base.OnInspectorGUI();
             if (GUILayout.Button("Save"))
             {
-                string file = $"Assets/{System.DateTime.Now.ToString("yyyyMMdd_HH_mm_ss_ffff")}.asset";
+                string file = $"Assets/{System.DateTime.Now:yyyyMMdd_HH_mm_ss_ffff}.asset";
                 GenerationAsset asset = DNAAsset.CreateInstance<GenerationAsset>();
                 AssetDatabase.CreateAsset(asset, file);
 

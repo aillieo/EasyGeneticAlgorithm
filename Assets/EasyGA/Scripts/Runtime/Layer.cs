@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AillieoUtils
 {
@@ -45,7 +44,6 @@ namespace AillieoUtils
             }
 
             Matrix.MultiplyNoAllocUnsafe(input, weights, output);
-            //output = distances * Weights;
 
             for (int i = 0; i < output.size; i++)
             {

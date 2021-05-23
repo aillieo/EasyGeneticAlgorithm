@@ -10,18 +10,6 @@ namespace AillieoUtils
 
         private int[] layerSize;
 
-        public NeuralNetwork(params int[] layerSize)
-        {
-            this.layerSize = layerSize;
-            this.layers = new List<Layer>();
-
-            for (int i = 0; i < layerSize.Length - 1; i++)
-            {
-                Layer l = new Layer(layerSize[i], layerSize[i + 1]);
-                layers.Add(l);
-            }
-        }
-
         public NeuralNetwork(IEnumerable<Matrix> weights)
         {
             var ws = weights.ToArray();
