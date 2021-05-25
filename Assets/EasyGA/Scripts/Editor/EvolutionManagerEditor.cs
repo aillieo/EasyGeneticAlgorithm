@@ -53,6 +53,11 @@ namespace AillieoUtils
             {
                 UnityEngine.Time.timeScale = 1f;
             }
+
+            if (GUILayout.Button("[ ]"))
+            {
+                (target as EvolutionManager).ForceRestart();
+            }
         }
     }
 }

@@ -90,6 +90,11 @@ namespace AillieoUtils
             }
         }
 
+        public void ForceRestart()
+        {
+            Regenerate();
+        }
+
         private void Regenerate()
         {
             float best = agents.Max(a => a.score); 
