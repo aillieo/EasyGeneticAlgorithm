@@ -1,6 +1,4 @@
-EasyGeneticAlgorithm
-
----
+## EasyGeneticAlgorithm
 
 简单的遗传算法的实现
 

@@ -19,8 +19,8 @@ namespace AillieoUtils
         }
         public Matrix(double[,] values)
         {
-            row = values.GetUpperBound(0) + 1;
-            column = values.GetUpperBound(1) + 1;
+            row = values.GetLength(0);
+            column = values.GetLength(1);
             data = new double[row * column];
             for (int i = 0; i < column; ++i)
             {
@@ -33,7 +33,7 @@ namespace AillieoUtils
         public Matrix(double[] vector)
         {
             row = 1;
-            column = vector.GetUpperBound(0) + 1;
+            column = vector.GetLength(0);
             data = new double[1 * column];
             for (int i = 0; i < vector.Length; i++)
             {
@@ -55,7 +55,15 @@ namespace AillieoUtils
 
         public Matrix Transpose()
         {
-            throw new NotImplementedException();
+            Matrix mat = new Matrix(column, row);
+            for (int i = 0; i < this.row; i++)
+            {
+                for (int j = 0; j < this.column; j++)
+                {
+                    mat[j, i] = this[i, j];
+                }
+            }
+            return mat;
         }
 
         public Vector Flat()
@@ -107,20 +115,34 @@ namespace AillieoUtils
 
         public static Matrix operator -(Matrix a, Matrix b)
         {
-            return a + b * (-1);
+            if (a.row != b.row || a.column != b.column)
+            {
+                throw new Exception($"mismatch dimensions a:{a.row},{a.column} b:{b.row},{b.column}");
+            }
+
+            Matrix result = new Matrix(a.row, a.column);
+            for (int i = 0; i < a.row; i++)
+            {
+                for (int j = 0; j < a.column; j++)
+                {
+                    result[i, j] = a[i, j] - b[i, j];
+                }
+            }
+            return result;
         }
 
         public static Matrix operator *(Matrix matrix, double scalar)
         {
+            Matrix result = new Matrix(matrix.row, matrix.column);
             for (int i = 0; i < matrix.row; i++)
             {
                 for (int j = 0; j < matrix.column; j++)
                 {
-                    matrix[i, j] = matrix[i, j] * scalar;
+                    result[i, j] = matrix[i, j] * scalar;
                 }
             }
 
-            return matrix;
+            return result;
         }
 
         public static Matrix operator *(double scalar, Matrix matrix)
@@ -224,7 +246,6 @@ namespace AillieoUtils
 
             return result;
         }
-
 
         public override string ToString()
         {
